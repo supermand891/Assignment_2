@@ -8,15 +8,14 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 
 export default function HomeScreen({
   profileName,
   creditCard,
-  petName,
+  password,
   setProfileName,
   setCreditCard,
-  setPetName,
+  setPassword,
 }) {
   const navigation = useNavigation();
 
@@ -35,11 +34,17 @@ export default function HomeScreen({
       >
         Money App
       </Text>
-      <Image
-        source={require("../assets/Moneybag.png")}
-        style={styles.mainImage}
-        accessibilityLabel="Money image"
-      />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Secret")}
+        accessibilityRole="button"
+        accessibilityLabel="View secret screen"
+      >
+        <Image
+          source={require("../assets/Moneybag.png")}
+          style={styles.mainImage}
+          accessibilityLabel="Money image"
+        />
+      </TouchableOpacity>
       {/* Card: Profile Name Input */}
       <View
         style={styles.card}
@@ -76,20 +81,21 @@ export default function HomeScreen({
         />
       </View>
 
-      {/* Card: Pet Name Input */}
+      {/* Card: Password Input */}
       <View
         style={styles.card}
         accessible
         accessibilityRole="text"
-        accessibilityLabel="Pet name input"
+        accessibilityLabel="Password input"
       >
-        <Text style={styles.cardLabel}>First Pet Name</Text>
+        <Text style={styles.cardLabel}></Text>
         <TextInput
           style={styles.input}
-          value={petName}
-          onChangeText={setPetName}
-          placeholder="Enter your first pet's name"
-          accessibilityLabel="Pet name input field"
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Enter your password"
+          secureTextEntry
+          accessibilityLabel="Password input field"
         />
       </View>
 
@@ -153,7 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#101010",
   },
-  // style for when there is no catname given
+  // style for when there is nothing given
   fallbackValue: {
     color: "#101010",
     fontSize: 13,

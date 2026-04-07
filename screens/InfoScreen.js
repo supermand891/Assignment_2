@@ -13,11 +13,13 @@ export default function InfoScreen({
   profileName,
   moneyLoaned,
   creditCard,
+  password,
   resetData,
+  setMoneyLoaned,
 }) {
   const navigation = useNavigation();
   const blinkAnim = useRef(new Animated.Value(1)).current;
-
+  // Got help from ai for the blinking animation
   useEffect(() => {
     const blink = Animated.loop(
       Animated.sequence([
@@ -55,7 +57,8 @@ export default function InfoScreen({
         <Text style={styles.rewardAmount}>{moneyLoaned || "0"}$</Text>
         <Text style={styles.rewardNote}>
           This amount is on the way to {creditCard || "your card"} and will be
-          available within 24 hours.
+          available within 24 hours. Use the password "{password || "N/A"}" to
+          claim it.
         </Text>
       </View>
 

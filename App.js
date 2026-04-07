@@ -10,6 +10,7 @@ import HomeScreen from "./screens/HomeScreen";
 import MoneyScreen from "./screens/MoneyScreen";
 import InfoScreen from "./screens/InfoScreen";
 import StartScreen from "./screens/StartScreen";
+import SecretScreen from "./screens/SercretScreen";
 
 // Onboarding screens
 import OnboardingOne from "./screens/onboarding/onboardingOne";
@@ -26,16 +27,10 @@ function MainTabs({
   setProfileName,
   creditCard,
   setCreditCard,
-  petName,
-  setPetName,
+  password,
+  setPassword,
   moneyLoaned,
   setMoneyLoaned,
-  friendNote,
-  setFriendNote,
-  friendName,
-  setFriendName,
-  amountToGamble,
-  setAmountToGamble,
   resetData,
 }) {
   return (
@@ -60,8 +55,8 @@ function MainTabs({
             setProfileName={setProfileName}
             creditCard={creditCard}
             setCreditCard={setCreditCard}
-            petName={petName}
-            setPetName={setPetName}
+            password={password}
+            setPassword={setPassword}
           />
         )}
       </Tab.Screen>
@@ -81,10 +76,6 @@ function MainTabs({
             setProfileName={setProfileName}
             moneyLoaned={moneyLoaned}
             setMoneyLoaned={setMoneyLoaned}
-            friendNote={friendNote}
-            setFriendNote={setFriendNote}
-            friendName={friendName}
-            setFriendName={setFriendName}
           />
         )}
       </Tab.Screen>
@@ -102,7 +93,10 @@ function MainTabs({
           <InfoScreen
             profileName={profileName}
             moneyLoaned={moneyLoaned}
+            creditCard={creditCard}
+            password={password}
             resetData={resetData}
+            setMoneyLoaned={setMoneyLoaned}
           />
         )}
       </Tab.Screen>
@@ -112,20 +106,16 @@ function MainTabs({
 
 export default function App() {
   const [profileName, setProfileName] = useState("");
-  const [friendName, setFriendName] = useState("");
+  const [password, setPassword] = useState("");
   const [moneyLoaned, setMoneyLoaned] = useState("");
-  const [friendNote, setFriendNote] = useState("");
   const [creditCard, setCreditCard] = useState("");
-  const [petName, setPetName] = useState("");
   const [amountToGamble, setAmountToGamble] = useState("");
 
   const resetData = () => {
     setProfileName("");
-    setFriendName("");
+    setPassword("");
     setMoneyLoaned("");
-    setFriendNote("");
     setCreditCard("");
-    setPetName("");
     setAmountToGamble("");
   };
 
@@ -136,6 +126,14 @@ export default function App() {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="Secret">
+          {() => (
+            <SecretScreen
+              moneyLoaned={moneyLoaned}
+              setMoneyLoaned={setMoneyLoaned}
+            />
+          )}
+        </Stack.Screen>
         <Stack.Screen name="HomeTabs">
           {() => (
             <MainTabs
@@ -144,8 +142,8 @@ export default function App() {
               setProfileName={setProfileName}
               creditCard={creditCard}
               setCreditCard={setCreditCard}
-              petName={petName}
-              setPetName={setPetName}
+              password={password}
+              setPassword={setPassword}
               moneyLoaned={moneyLoaned}
               setMoneyLoaned={setMoneyLoaned}
               amountToGamble={amountToGamble}

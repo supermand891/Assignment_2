@@ -14,7 +14,7 @@ export default function MoneyScreen({ setMoneyLoaned }) {
     if (setMoneyLoaned) {
       setMoneyLoaned(total.toString());
     }
-    navigation.navigate("Info");
+    navigation.navigate("HomeTabs", { screen: "Info" });
   };
 
   return (
