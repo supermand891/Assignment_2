@@ -7,9 +7,9 @@ import { Text } from "react-native";
 
 // Screens
 import HomeScreen from "./screens/HomeScreen";
-import PlayingScreen from "./screens/PlayingScreen";
 import MoneyScreen from "./screens/MoneyScreen";
 import InfoScreen from "./screens/InfoScreen";
+import StartScreen from "./screens/StartScreen";
 
 // Onboarding screens
 import OnboardingOne from "./screens/onboarding/onboardingOne";
@@ -17,140 +17,143 @@ import OnboardingTwo from "./screens/onboarding/onboardingTwo";
 
 // Tab navigator
 const Tab = createBottomTabNavigator();
-const HomeStack = createNativeStackNavigator();
+//const HomeStack = createNativeStackNavigator();
 const OnboardingStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-function HomeStackScreen({ profileName, friendName, moneyLoaned, friendNote }) {
+function MainTabs({
+  profileName,
+  setProfileName,
+  creditCard,
+  setCreditCard,
+  petName,
+  setPetName,
+  moneyLoaned,
+  setMoneyLoaned,
+  friendNote,
+  setFriendNote,
+  friendName,
+  setFriendName,
+  amountToGamble,
+  setAmountToGamble,
+  resetData,
+}) {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="HomeMain"
-        options={{ title: "Home", headerShown: false }}
-      >
-        {() => <HomeScreen profileName={profileName} />}
-      </HomeStack.Screen>
-
-      <HomeStack.Screen
-        name="History"
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {/* HOME TAB */}
+      <Tab.Screen
+        name="Home"
         options={{
-          title: "Money History",
-          headerShown: true,
-          presentation: "modal",
-          animation: "slide_from_bottom",
-        }} //changing the animation might need to change the "presentation" parameter above, check the documentation
+          title: "Home",
+          tabBarAccessibilityLabel: "Home tab",
+          tabBarIcon: () => <Text style={{ fontSize: 22 }}>🏠</Text>,
+        }}
       >
         {() => (
-          <HistoryScreen
-            friendName={friendName}
-            moneyLoaned={moneyLoaned}
-            friendNote={friendNote}
+          <HomeScreen
+            profileName={profileName}
+            setProfileName={setProfileName}
+            creditCard={creditCard}
+            setCreditCard={setCreditCard}
+            petName={petName}
+            setPetName={setPetName}
           />
         )}
-      </HomeStack.Screen>
-    </HomeStack.Navigator>
+      </Tab.Screen>
+
+      {/* Money TAB */}
+      <Tab.Screen
+        name="Money"
+        options={{
+          title: "Money",
+          tabBarAccessibilityLabel: "Money tab",
+          tabBarIcon: () => <Text style={{ fontSize: 22 }}>💰</Text>,
+        }}
+      >
+        {() => (
+          <MoneyScreen
+            profileName={profileName}
+            setProfileName={setProfileName}
+            moneyLoaned={moneyLoaned}
+            setMoneyLoaned={setMoneyLoaned}
+            friendNote={friendNote}
+            setFriendNote={setFriendNote}
+            friendName={friendName}
+            setFriendName={setFriendName}
+          />
+        )}
+      </Tab.Screen>
+
+      {/* Info TAB */}
+      <Tab.Screen
+        name="Info"
+        options={{
+          title: "Info",
+          tabBarAccessibilityLabel: "Info tab",
+          tabBarIcon: () => <Text style={{ fontSize: 22 }}>ℹ️</Text>,
+        }}
+      >
+        {() => (
+          <InfoScreen
+            profileName={profileName}
+            moneyLoaned={moneyLoaned}
+            resetData={resetData}
+          />
+        )}
+      </Tab.Screen>
+    </Tab.Navigator>
   );
 }
 
 export default function App() {
   const [profileName, setProfileName] = useState("");
   const [friendName, setFriendName] = useState("");
-  const [moneyLoaned, setMoneyLoaned] = useState("20");
+  const [moneyLoaned, setMoneyLoaned] = useState("");
   const [friendNote, setFriendNote] = useState("");
-  const [amountToGamble, setAmountToGamble] = useState("20");
+  const [creditCard, setCreditCard] = useState("");
+  const [petName, setPetName] = useState("");
+  const [amountToGamble, setAmountToGamble] = useState("");
+
+  const resetData = () => {
+    setProfileName("");
+    setFriendName("");
+    setMoneyLoaned("");
+    setFriendNote("");
+    setCreditCard("");
+    setPetName("");
+    setAmountToGamble("");
+  };
 
   return (
     <NavigationContainer>
-      <OnboardingStack.Navigator
-        initialRouteName="OnboardingOne"
-        screenOptions={{
-          headerShown: false,
-        }}
+      <Stack.Navigator
+        initialRouteName="Start"
+        screenOptions={{ headerShown: false }}
       >
-        <OnboardingStack.Screen
-          name="OnboardingOne"
-          component={OnboardingOne}
-        />
-        <OnboardingStack.Screen
-          name="OnboardingTwo"
-          component={OnboardingTwo}
-        />
-        {/* HOME TAB */}
-        <OnboardingStack.Screen
-          name="Home"
-          options={{
-            title: "Home",
-            tabBarAccessibilityLabel: "Home tab",
-            tabBarIcon: () => <Text style={{ fontSize: 22 }}>🏠</Text>,
-          }}
-        >
+        <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="HomeTabs">
           {() => (
-            <HomeStackScreen
-              profileName={profileName}
-              friendName={friendName}
-              moneyLoaned={moneyLoaned}
-              friendNote={friendNote}
-            />
-          )}
-        </OnboardingStack.Screen>
-
-        {/* Money TAB */}
-        <OnboardingStack.Screen
-          name="Money"
-          options={{
-            title: "Money tab",
-            tabBarAccessibilityLabel: "Money tab",
-            tabBarIcon: () => <Text style={{ fontSize: 22 }}>💰</Text>,
-          }}
-        >
-          {() => (
-            <MoneyScreen
+            <MainTabs
+              resetData={resetData}
               profileName={profileName}
               setProfileName={setProfileName}
+              creditCard={creditCard}
+              setCreditCard={setCreditCard}
+              petName={petName}
+              setPetName={setPetName}
               moneyLoaned={moneyLoaned}
               setMoneyLoaned={setMoneyLoaned}
-              friendNote={friendNote}
-              setFriendNote={setFriendNote}
-              friendName={friendName}
-              setFriendName={setFriendName}
-            />
-          )}
-        </OnboardingStack.Screen>
-
-        {/* Playing TAB */}
-        <OnboardingStack.Screen
-          name="Playing"
-          options={{
-            title: "Playing tab",
-            tabBarAccessibilityLabel: "Playing tab",
-            tabBarIcon: () => <Text style={{ fontSize: 22 }}>🎮</Text>,
-          }}
-        >
-          {() => (
-            <PlayingScreen
               amountToGamble={amountToGamble}
               setAmountToGamble={setAmountToGamble}
             />
           )}
-        </OnboardingStack.Screen>
-
-        {/* Info TAB */}
-        <OnboardingStack.Screen
-          name="Info"
-          options={{
-            title: "Info tab",
-            tabBarAccessibilityLabel: "Info tab",
-            tabBarIcon: () => <Text style={{ fontSize: 22 }}>ℹ️</Text>,
-          }}
-        >
-          {() => (
-            <InfoScreen
-              friendName={friendName}
-              moneyLoaned={moneyLoaned}
-              friendNotes={friendNote}
-            />
-          )}
-        </OnboardingStack.Screen>
-      </OnboardingStack.Navigator>
+        </Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
