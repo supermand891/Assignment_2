@@ -18,15 +18,33 @@ export default function StartScreen() {
           onPress={() => navigation.replace("HomeTabs")}
           accessibilityRole="button"
           accessibilityLabel="Press the star to get money"
+          accessibilityHint="Navigates to the main money app tabs"
         >
           <ImageBackground
             source={require("../assets/Star.png")}
             style={styles.starImage}
             imageStyle={styles.starImageStyle}
+            accessibilityLabel="Star graphic to start the app"
           >
-            <View style={styles.textOverlay}>
-              <Text style={styles.heading}>DO YOU LIKE MONEY?</Text>
-              <Text style={styles.subheading}>Press the star to get money</Text>
+            <View
+              style={styles.textOverlay}
+              accessible
+              accessibilityLabel="Press this star to get started"
+            >
+              <Text
+                style={styles.heading}
+                accessibilityRole="header"
+                accessibilityLabel="Do you like money?"
+              >
+                DO YOU LIKE MONEY?
+              </Text>
+              <Text
+                style={styles.subheading}
+                accessibilityRole="text"
+                accessibilityLabel="Press the star to get money"
+              >
+                Press the star to get money!
+              </Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>

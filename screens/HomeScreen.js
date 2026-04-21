@@ -35,14 +35,27 @@ export default function HomeScreen({
         Money App
       </Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Secret")}
+        disabled={!profileName || !creditCard || !password}
+        onPress={() => {
+          if (profileName && creditCard && password) {
+            navigation.navigate("Secret");
+          }
+        }}
         accessibilityRole="button"
-        accessibilityLabel="View secret screen"
+        accessibilityLabel="Open secret screen"
+        accessibilityHint={
+          profileName && creditCard && password
+            ? "Navigates to the hidden treasure screen"
+            : "Fill in profile name, credit card, and password to unlock"
+        }
+        style={{
+          opacity: profileName && creditCard && password ? 1 : 0.8,
+        }}
       >
         <Image
           source={require("../assets/Moneybag.png")}
           style={styles.mainImage}
-          accessibilityLabel="Money image"
+          accessibilityLabel="Money bag illustration"
         />
       </TouchableOpacity>
       {/* Card: Profile Name Input */}
@@ -50,7 +63,7 @@ export default function HomeScreen({
         style={styles.card}
         accessible
         accessibilityRole="text"
-        accessibilityLabel="Profile name input"
+        accessibilityLabel="Profile name input card"
       >
         <Text style={styles.cardLabel}>Profile Name</Text>
         <TextInput
@@ -58,7 +71,9 @@ export default function HomeScreen({
           value={profileName}
           onChangeText={setProfileName}
           placeholder="Enter your profile name"
+          accessibilityRole="text"
           accessibilityLabel="Profile name input field"
+          accessibilityHint="Type your profile name here"
         />
       </View>
 
@@ -77,7 +92,9 @@ export default function HomeScreen({
           placeholder="Enter credit card number"
           keyboardType="numeric"
           secureTextEntry
+          accessibilityRole="text"
           accessibilityLabel="Credit card input field"
+          accessibilityHint="Type your credit card number here"
         />
       </View>
 
@@ -88,22 +105,30 @@ export default function HomeScreen({
         accessibilityRole="text"
         accessibilityLabel="Password input"
       >
-        <Text style={styles.cardLabel}></Text>
+        <Text style={styles.cardLabel}>Password</Text>
         <TextInput
           style={styles.input}
           value={password}
           onChangeText={setPassword}
           placeholder="Enter your password"
           secureTextEntry
+          accessibilityRole="text"
           accessibilityLabel="Password input field"
+          accessibilityHint="Type your password here"
         />
       </View>
 
       <TouchableOpacity
         style={styles.historyButton}
-        onPress={() => navigation.navigate("Money")}
+        disabled={!profileName || !creditCard || !password}
+        onPress={() => {
+          if (profileName && creditCard && password) {
+            navigation.navigate("Money");
+          }
+        }}
         accessibilityRole="button"
         accessibilityLabel="Open money screen"
+        accessibilityHint="Navigates to the screen where you can add money amounts"
       >
         <Text style={styles.historyButtonText}>Go get some money</Text>
       </TouchableOpacity>
@@ -135,7 +160,6 @@ const styles = StyleSheet.create({
     borderColor: "#F1DC25",
   },
 
-  // Card styling for each data point
   card: {
     backgroundColor: "#F1DC25",
     borderRadius: 14,
@@ -158,12 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "700",
     color: "#101010",
-  },
-  // style for when there is nothing given
-  fallbackValue: {
-    color: "#101010",
-    fontSize: 13,
-    opacity: 0.8,
   },
   input: {
     fontSize: 18,

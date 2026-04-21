@@ -146,8 +146,6 @@ export default function App() {
               setPassword={setPassword}
               moneyLoaned={moneyLoaned}
               setMoneyLoaned={setMoneyLoaned}
-              amountToGamble={amountToGamble}
-              setAmountToGamble={setAmountToGamble}
             />
           )}
         </Stack.Screen>

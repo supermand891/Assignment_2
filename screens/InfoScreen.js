@@ -46,24 +46,51 @@ export default function InfoScreen({
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.banner}>CONGRATULATIONS!</Text>
-      <Text style={styles.subtitle}>
+      <Text
+        style={styles.banner}
+        accessibilityRole="header"
+        accessibilityLabel="Congratulations"
+      >
+        CONGRATULATIONS!
+      </Text>
+      <Text
+        style={styles.subtitle}
+        accessibilityRole="text"
+        accessibilityLabel={`Welcome ${profileName || "User"}. You have been selected for an exclusive bonus reward.`}
+      >
         {profileName || "User"}, you have been selected for an exclusive bonus
         reward.
       </Text>
 
-      <View style={styles.rewardCard}>
-        <Text style={styles.rewardLabel}>YOU HAVE SECURED</Text>
-        <Text style={styles.rewardAmount}>{moneyLoaned || "0"}$</Text>
-        <Text style={styles.rewardNote}>
+      <View
+        style={styles.rewardCard}
+        accessible
+        accessibilityLabel={`Reward details. You have secured ${moneyLoaned || "0"} dollars. The amount will be sent to ${creditCard || "your card"}. Use the password ${password || "N/A"} to claim it.`}
+      >
+        <Text style={styles.rewardNote}>YOU HAVE SECURED</Text>
+        <Text
+          style={styles.rewardAmount}
+          accessibilityRole="text"
+          accessibilityLabel={`${moneyLoaned || "0"} dollars`}
+        >
+          {moneyLoaned || "0"}$
+        </Text>
+        <Text style={styles.rewardNote} accessibilityRole="text">
           This amount is on the way to {creditCard || "your card"} and will be
-          available within 24 hours. Use the password "{password || "N/A"}" to
-          claim it.
+          available within 24 hours.
+        </Text>
+        <Text style={styles.rewardNote} accessibilityRole="text">
+          Use the password "{password || "N/A"}" to claim it.
         </Text>
       </View>
 
-      <View style={styles.urgentBox}>
-        <Text style={styles.urgentText}>
+      <View
+        style={styles.urgentBox}
+        accessible
+        accessibilityRole="text"
+        accessibilityLabel="Warning. Only one claim per device."
+      >
+        <Text style={styles.rewardNote}>
           WARNING: Only one claim per device.
         </Text>
       </View>
@@ -74,10 +101,9 @@ export default function InfoScreen({
           onPress={handleGetMoreMoney}
           accessibilityRole="button"
           accessibilityLabel="Get more money"
+          accessibilityHint="Resets data and sends you to the start screen"
         >
-          <Text style={styles.moreMoneyButtonText}>
-            START GETTING MORE MONEY AGAIN
-          </Text>
+          <Text style={styles.rewardNote}>START GETTING MORE MONEY AGAIN</Text>
         </TouchableOpacity>
       </Animated.View>
     </ScrollView>
@@ -104,7 +130,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   subtitle: {
-    fontSize: 17,
+    fontSize: 30,
     fontWeight: "700",
     color: "#FFFFFF",
     textAlign: "center",
@@ -135,7 +161,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   rewardNote: {
-    fontSize: 16,
+    fontSize: 24,
+    fontFamily: "Goblin One",
     fontWeight: "700",
     color: "#101010",
     textAlign: "center",
@@ -154,22 +181,12 @@ const styles = StyleSheet.create({
     color: "#F1DC25",
     marginBottom: 12,
   },
-  detailText: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginBottom: 8,
-  },
+
   urgentBox: {
     backgroundColor: "#C0392B",
     borderRadius: 18,
     padding: 16,
     alignItems: "center",
-  },
-  urgentText: {
-    fontSize: 16,
-    fontWeight: "900",
-    color: "#FFFFFF",
-    textTransform: "uppercase",
   },
   moreMoneyButton: {
     backgroundColor: "#F1DC25",
@@ -182,12 +199,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     shadowRadius: 12,
     elevation: 10,
-  },
-  moreMoneyButtonText: {
-    fontSize: 18,
-    fontWeight: "900",
-    color: "#101010",
-    textTransform: "uppercase",
-    letterSpacing: 1,
   },
 });

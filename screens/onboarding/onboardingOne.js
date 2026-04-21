@@ -14,6 +14,9 @@ export default function OnboardingOne() {
       <TouchableOpacity
         style={styles.skipButton}
         onPress={() => navigation.navigate("HomeScreen")}
+        accessibilityRole="button"
+        accessibilityLabel="Skip onboarding"
+        accessibilityHint="Skips onboarding and opens the home screen"
       >
         <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
@@ -22,14 +25,20 @@ export default function OnboardingOne() {
           uri: "https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg",
         }}
         style={styles.image}
+        accessibilityLabel="Onboarding illustration"
       />
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.description}>
+      <Text style={styles.title} accessibilityRole="header" accessibilityLabel="Welcome">
+        Welcome
+      </Text>
+      <Text style={styles.description} accessibilityRole="text" accessibilityLabel="Explain what your app does and why users should care.">
         Explain what your app does and why users should care.
       </Text>
       <Pressable
         style={styles.button}
         onPress={() => navigation.navigate("OnboardingTwo")}
+        accessibilityRole="button"
+        accessibilityLabel="Next onboarding screen"
+        accessibilityHint="Continues to the next onboarding page"
       >
         <Text style={styles.buttonText}>Next</Text>
       </Pressable>

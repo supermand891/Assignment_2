@@ -19,7 +19,18 @@ export default function MoneyScreen({ setMoneyLoaned }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.instructionCard}>
+      <Text
+        style={styles.pageTitle}
+        accessibilityRole="header"
+        accessibilityLabel="Money screen"
+      >
+        Get Rich Fast
+      </Text>
+      <View
+        style={styles.instructionCard}
+        accessible
+        accessibilityLabel="Instructions to add money"
+      >
         <Text style={styles.instructionText}>
           Click to get rich, click more to get more rich
         </Text>
@@ -31,6 +42,7 @@ export default function MoneyScreen({ setMoneyLoaned }) {
           onPress={() => addAmount(1)}
           accessibilityRole="button"
           accessibilityLabel="Add one dollar"
+          accessibilityHint="Increases your total by one dollar"
         >
           <Text style={styles.amountText}>1$</Text>
         </TouchableOpacity>
@@ -40,6 +52,7 @@ export default function MoneyScreen({ setMoneyLoaned }) {
           onPress={() => addAmount(5)}
           accessibilityRole="button"
           accessibilityLabel="Add five dollars"
+          accessibilityHint="Increases your total by five dollars"
         >
           <Text style={styles.amountText}>5$</Text>
         </TouchableOpacity>
@@ -49,14 +62,25 @@ export default function MoneyScreen({ setMoneyLoaned }) {
           onPress={() => addAmount(100)}
           accessibilityRole="button"
           accessibilityLabel="Add one hundred dollars"
+          accessibilityHint="Increases your total by one hundred dollars"
         >
           <Text style={styles.amountText}>100$</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.totalContainer}>
+      <View
+        style={styles.totalContainer}
+        accessible
+        accessibilityLabel={`Total amount is ${total} dollars`}
+      >
         <Text style={styles.totalLabel}>Total amount:</Text>
-        <Text style={styles.totalValue}>{total}$</Text>
+        <Text
+          style={styles.totalValue}
+          accessibilityRole="text"
+          accessibilityLabel={`Total amount is ${total} dollars`}
+        >
+          {total}$
+        </Text>
       </View>
 
       <TouchableOpacity
@@ -64,6 +88,7 @@ export default function MoneyScreen({ setMoneyLoaned }) {
         onPress={claimMoney}
         accessibilityRole="button"
         accessibilityLabel="Claim money"
+        accessibilityHint="Sends your total to the info screen"
       >
         <Text style={styles.claimButtonText}>Claim Money</Text>
       </TouchableOpacity>
@@ -129,6 +154,13 @@ const styles = StyleSheet.create({
   },
   greenButton: {
     backgroundColor: "#30B75D",
+  },
+  pageTitle: {
+    fontSize: 28,
+    fontWeight: "900",
+    color: "#F1DC25",
+    marginBottom: 20,
+    textAlign: "center",
   },
   totalContainer: {
     width: "100%",

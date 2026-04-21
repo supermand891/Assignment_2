@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function SecretScreen({ moneyLoaned, setMoneyLoaned }) {
+export default function SecretScreen({ setMoneyLoaned }) {
   const navigation = useNavigation();
 
   const million = () => {
@@ -11,7 +11,11 @@ export default function SecretScreen({ moneyLoaned, setMoneyLoaned }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.cloudRow}>
+      <View
+        style={styles.cloudRow}
+        accessible
+        accessibilityLabel="Celebratory announcement bubbles"
+      >
         <View style={styles.cloudBubble}>
           <Text style={styles.cloudText}>WOW!</Text>
         </View>
@@ -20,7 +24,11 @@ export default function SecretScreen({ moneyLoaned, setMoneyLoaned }) {
         </View>
       </View>
 
-      <View style={styles.messageBox}>
+      <View
+        style={styles.messageBox}
+        accessible
+        accessibilityLabel="Hidden treasure message"
+      >
         <Text style={styles.messageText}>You found the hidden treasure!</Text>
       </View>
 
@@ -28,14 +36,25 @@ export default function SecretScreen({ moneyLoaned, setMoneyLoaned }) {
         style={styles.claimButton}
         onPress={() => million()}
         accessibilityRole="button"
-        accessibilityLabel="Click to claim"
+        accessibilityLabel="Click to claim the hidden treasure"
+        accessibilityHint="Sets your balance to one million and returns to the info screen"
       >
         <Text style={styles.claimButtonText}>Click to claim</Text>
       </TouchableOpacity>
 
-      <View style={styles.starArea}>
+      <View
+        style={styles.starArea}
+        accessible
+        accessibilityLabel="Treasure total one million dollars"
+      >
         <Text style={styles.star}>★</Text>
-        <Text style={styles.starAmount}>1.000.000$!!!</Text>
+        <Text
+          style={styles.starAmount}
+          accessibilityRole="text"
+          accessibilityLabel="One million dollars"
+        >
+          1.000.000$
+        </Text>
       </View>
     </View>
   );
@@ -99,9 +118,10 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 14,
     paddingHorizontal: 32,
-    marginBottom: 40,
+    marginBottom: 80,
     borderWidth: 2,
     borderColor: "#101010",
+    zIndex: 10,
   },
   claimButtonText: {
     color: "#101010",
@@ -117,18 +137,18 @@ const styles = StyleSheet.create({
   },
   star: {
     position: "absolute",
-    fontSize: 220,
+    fontSize: 420,
     color: "#F1DC25",
     textShadowColor: "rgba(0,0,0,0.4)",
     textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 8,
   },
   starAmount: {
+    position: "absolute",
     fontSize: 26,
     fontWeight: "900",
     color: "#101010",
-    transform: [{ rotate: "-18deg" }],
-    width: 260,
     textAlign: "center",
+    transform: [{ translateX: 10 }, { translateY: 40 }, { rotate: "-18deg" }],
   },
 });
