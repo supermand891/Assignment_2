@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   claimButtonText: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "800",
     color: "#101010",
   },
